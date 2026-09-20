@@ -1,0 +1,44 @@
+name: Release Desktop
+
+# Se dispara al pushear un tag desktop-vX.Y.Z. La versión del instalador y del
+# Release la toma electron-builder de clients/electron/package.json ("version"),
+# así que bumpea esa versión antes de taggear.
+on:
+  push:
+    tags: ['desktop-v*']
+
+jobs:
+  build:
+    runs-on: windows-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+
+      - name: Compilar binarios Go
+        shell: bash
+        run: |
+          mkdir -p clients/electron/bin
+          go build -o clients/electron/bin/passtore.exe ./cmd/passtore
+          go build -o clients/electron/bin/passtore-agent.exe ./cmd/passtore-agent
+          go build -o clients/electron/bin/passtore-native.exe ./cmd/passtore-native
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Instalar dependencias y publicar instalador
+        working-directory: clients/electron
+        env:
+          # electron-builder publica el instalador + latest.yml al GitHub Release.
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Firma de código Windows (opcional): descomenta y añade los secretos.
+          # WIN_CSC_LINK: ${{ secrets.WIN_CSC_LINK }}
+          # WIN_CSC_KEY_PASSWORD: ${{ secrets.WIN_CSC_KEY_PASSWORD }}
+        run: |
+          npm ci
+          npm run release

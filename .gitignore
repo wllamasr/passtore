@@ -1,0 +1,24 @@
+# Entorno / IDE
+.env
+.idea/
+
+# Binarios compilados (anclados a la raíz para no ignorar cmd/passtore/, etc.)
+/bin/
+*.exe
+*.exe~
+/passtore
+/passtore-agent
+/passtore-native
+
+# Vaults locales (nunca commitear datos reales)
+*.pstore
+*.pstore.tmp
+
+# Go
+*.test
+*.out
+
+# Node / Electron / extensión
+node_modules/
+dist/
+out/

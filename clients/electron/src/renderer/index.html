@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:;" />
+  <title>Passtore</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Pantalla de conexión -->
+  <div id="connect-view" class="center">
+    <div class="card">
+      <h1>Passtore</h1>
+      <p id="connect-msg" class="muted">Conectando con el agente local…</p>
+      <p id="connect-error" class="error hidden"></p>
+      <button id="retry-btn" class="hidden">Reintentar</button>
+    </div>
+  </div>
+
+  <!-- Pantalla de desbloqueo -->
+  <div id="unlock-view" class="center hidden">
+    <form class="card" id="unlock-form">
+      <h1>🔒 Vault bloqueado</h1>
+      <p class="muted" id="vault-path"></p>
+      <input type="password" id="master" placeholder="Contraseña maestra" autofocus />
+      <p id="unlock-error" class="error hidden"></p>
+      <button type="submit">Desbloquear</button>
+    </form>
+  </div>
+
+  <!-- Vista principal -->
+  <div id="main-view" class="hidden">
+    <header class="toolbar">
+      <input type="search" id="search" placeholder="Buscar…" />
+      <div class="dropdown">
+        <button id="add-btn" title="Añadir">＋ Añadir ▾</button>
+        <div id="add-menu" class="menu hidden">
+          <button type="button" data-type="login">🔑 Credenciales</button>
+          <button type="button" data-type="note">📝 Nota segura</button>
+        </div>
+      </div>
+      <button id="lock-btn" title="Bloquear">🔒 Bloquear</button>
+    </header>
+    <div class="layout">
+      <ul id="entry-list" class="list"></ul>
+      <section id="detail" class="detail">
+        <p class="muted">Selecciona una entrada.</p>
+      </section>
+    </div>
+  </div>
+
+  <!-- Modal de edición/creación -->
+  <div id="modal" class="modal-backdrop hidden">
+    <form class="modal" id="entry-form">
+      <h2 id="modal-title">Nueva entrada</h2>
+      <input type="hidden" id="f-id" />
+      <input type="hidden" id="f-type" value="login" />
+      <label>Título<input id="f-title" required /></label>
+      <label class="login-only">Usuario<input id="f-username" /></label>
+      <label class="login-only">Contraseña
+        <span class="pw-row">
+          <input id="f-password" type="text" />
+          <button type="button" id="gen-btn" title="Generar">🎲</button>
+        </span>
+      </label>
+      <label class="login-only">URL<input id="f-url" /></label>
+      <label><span id="notes-label">Notas</span><textarea id="f-notes" rows="3"></textarea></label>
+      <label>Tags (coma)<input id="f-tags" /></label>
+      <label class="login-only">OTP / 2FA (otpauth:// o secreto base32)<input id="f-otp" placeholder="opcional" /></label>
+      <p id="modal-error" class="error hidden"></p>
+      <div class="modal-actions">
+        <button type="button" id="cancel-btn" class="secondary">Cancelar</button>
+        <button type="submit">Guardar</button>
+      </div>
+    </form>
+  </div>
+
+  <script src="renderer.js"></script>
+</body>
+</html>

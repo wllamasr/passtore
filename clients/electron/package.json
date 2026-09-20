@@ -1,0 +1,56 @@
+{
+  "name": "passtore-desktop",
+  "version": "0.1.0",
+  "description": "Cliente de escritorio (Electron) para el gestor de contraseñas Passtore",
+  "main": "src/main.js",
+  "author": "Wilmer Llamas",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron .",
+    "check": "node --check src/main.js && node --check src/preload.js && node --check src/agentClient.js && node --check src/renderer/renderer.js",
+    "dist": "electron-builder --win --publish never",
+    "release": "electron-builder --win --publish always"
+  },
+  "dependencies": {
+    "electron-updater": "^6.3.9"
+  },
+  "devDependencies": {
+    "electron": "^33.0.0",
+    "electron-builder": "^25.1.8"
+  },
+  "build": {
+    "appId": "com.wllamasr.passtore",
+    "productName": "Passtore",
+    "directories": {
+      "output": "dist",
+      "buildResources": "build"
+    },
+    "files": [
+      "src/**/*",
+      "!**/*.map"
+    ],
+    "extraResources": [
+      {
+        "from": "bin",
+        "to": "bin",
+        "filter": ["**/*"]
+      }
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "build/icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "include": "build/installer.nsh",
+      "shortcutName": "Passtore"
+    },
+    "publish": {
+      "provider": "github",
+      "owner": "wllamasr",
+      "repo": "passtore"
+    }
+  }
+}

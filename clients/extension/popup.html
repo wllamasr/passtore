@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet" href="popup.css" />
+  <title>Passtore</title>
+</head>
+<body>
+  <div id="view-loading" class="view-center">
+    <div class="logo">P</div>
+    <p class="muted">Conectando con el agente…</p>
+  </div>
+
+  <div id="view-error" class="view-center hidden">
+    <div class="logo">P</div>
+    <p class="err" id="error-msg"></p>
+    <button id="retry">Reintentar</button>
+  </div>
+
+  <form id="view-unlock" class="view-center hidden">
+    <div class="logo">P</div>
+    <h1>Passtore</h1>
+    <div class="stack">
+      <input type="password" id="master" placeholder="Contraseña maestra" />
+      <p id="unlock-err" class="err hidden"></p>
+      <button type="submit">Desbloquear</button>
+    </div>
+  </form>
+
+  <div id="view-main" class="hidden">
+    <div class="brand">
+      <div class="logo">P</div>
+      <div class="name">Passtore</div>
+      <div class="spacer"></div>
+      <button id="lock" class="icon" title="Bloquear">🔒</button>
+    </div>
+    <div class="otpbar">
+      <button id="scan-tab" class="mini">🔍 Escanear QR</button>
+      <button id="open-scan" class="mini secondary">＋ OTP</button>
+    </div>
+    <div class="toolbar">
+      <div class="search">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg>
+        <input type="search" id="search" placeholder="Buscar…" />
+      </div>
+    </div>
+    <p id="attach-hint" class="hint hidden"></p>
+    <ul id="list" class="list"></ul>
+  </div>
+
+  <script src="vendor/jsQR.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

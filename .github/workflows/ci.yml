@@ -1,0 +1,40 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  go:
+    name: Go (build/vet/test)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+      - run: go vet ./...
+      - run: go build ./...
+      - run: go test ./...
+
+  js:
+    name: JS (syntax check)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Check extension scripts
+        run: |
+          for f in background content popup scan; do
+            node --check "clients/extension/$f.js"
+          done
+      - name: Check electron scripts
+        run: |
+          node --check clients/electron/src/main.js
+          node --check clients/electron/src/preload.js
+          node --check clients/electron/src/agentClient.js
+          node --check clients/electron/src/renderer/renderer.js

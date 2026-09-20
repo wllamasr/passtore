@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet" href="popup.css" />
+  <title>Passtore — Guardar OTP</title>
+</head>
+<body class="scanbody">
+  <div class="pad">
+    <div class="scan-head">
+      <div class="logo">P</div>
+      <h1>Guardar OTP / 2FA</h1>
+    </div>
+    <p class="lead">Escanea el código QR de 2FA o pega el texto <code>otpauth://</code>.</p>
+
+    <section class="card">
+      <h2><span class="dot">📋</span> Pegar manualmente</h2>
+      <div class="inline">
+        <input id="manual" placeholder="otpauth://totp/… o secreto base32" />
+        <button id="manual-use">Usar</button>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2><span class="dot">🖼️</span> Subir imagen del QR</h2>
+      <input type="file" id="file" accept="image/*" class="file-drop" />
+    </section>
+
+    <section class="card hidden" id="webcam-block">
+      <h2><span class="dot">📷</span> Escanear con cámara</h2>
+      <video id="video" autoplay playsinline muted></video>
+      <div class="row-btns">
+        <button id="cam-start">Iniciar cámara</button>
+        <button id="cam-stop" class="secondary hidden">Detener</button>
+      </div>
+    </section>
+    <section class="card hidden" id="webcam-disabled-card">
+      <h2><span class="dot">📷</span> Escanear con cámara <span class="badge">deshabilitado</span></h2>
+      <p class="muted" style="margin:0">🔒 El escaneo por cámara está deshabilitado por el administrador.</p>
+    </section>
+
+    <p id="scan-msg" class="err hidden"></p>
+
+    <section id="attach" class="card success hidden">
+      <h2>✔ OTP detectado</h2>
+      <p class="muted" id="otp-label" style="margin-top:0"></p>
+      <label class="blk">Adjuntar a entrada existente
+        <select id="entry-select"></select>
+      </label>
+      <div class="row-btns">
+        <button id="save-existing">Adjuntar a la seleccionada</button>
+        <button id="save-new" class="secondary">Crear entrada nueva</button>
+      </div>
+      <p id="attach-msg" class="ok hidden" style="margin-bottom:0"></p>
+    </section>
+  </div>
+
+  <canvas id="canvas" class="hidden"></canvas>
+  <script src="vendor/jsQR.js"></script>
+  <script src="scan.js"></script>
+</body>
+</html>

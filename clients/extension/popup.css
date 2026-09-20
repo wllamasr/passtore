@@ -1,0 +1,101 @@
+:root{
+  --bg:#0f1117; --surface:#161923; --surface-2:#1e2230; --surface-3:#262b3b;
+  --border:#2a3040; --border-strong:#374056;
+  --text:#e8eaf2; --muted:#9aa2b8; --faint:#727a92;
+  --accent:#6d8bff; --accent-2:#8a7dff; --accent-weak:#20264a;
+  --ok:#4ade80; --ok-bg:#0f2c1c; --ok-border:#1c5233;
+  --danger:#ff6b6b;
+  --radius:14px; --radius-sm:9px;
+  --shadow:0 10px 30px rgba(0,0,0,.35);
+  --grad:linear-gradient(135deg,var(--accent),var(--accent-2));
+}
+*{box-sizing:border-box}
+body{
+  width:340px;margin:0;background:var(--bg);color:var(--text);
+  font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;font-size:14px;line-height:1.45;
+}
+.hidden{display:none !important}
+.muted{color:var(--muted)} .err{color:var(--danger)} .ok{color:var(--ok)}
+h1,h2,h3{margin:0}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;background:var(--surface-3);padding:1px 6px;border-radius:6px;font-size:.9em}
+.pad{padding:16px}
+
+/* Buttons */
+button{font:inherit;cursor:pointer;border:0;border-radius:var(--radius-sm);padding:9px 14px;
+  background:var(--grad);color:#fff;font-weight:600;transition:filter .15s,transform .05s,background .15s}
+button:hover{filter:brightness(1.08)} button:active{transform:translateY(1px)}
+button.secondary,button.ghost{background:var(--surface-2);color:var(--text);border:1px solid var(--border-strong)}
+button.secondary:hover,button.ghost:hover{background:var(--surface-3);filter:none}
+button.icon{background:var(--surface-2);border:1px solid var(--border-strong);padding:8px 10px}
+button.mini{padding:6px 10px;font-size:12.5px}
+
+/* Inputs */
+input,select,textarea{width:100%;background:var(--surface-2);border:1px solid var(--border-strong);
+  color:var(--text);border-radius:var(--radius-sm);padding:10px 12px;font:inherit;outline:none;
+  transition:border-color .15s,box-shadow .15s}
+input::placeholder{color:var(--faint)}
+input:focus,select:focus,textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-weak)}
+
+/* Brand + centered views */
+.brand{display:flex;align-items:center;gap:10px;padding:14px 16px;border-bottom:1px solid var(--border);background:var(--surface)}
+.logo{width:28px;height:28px;border-radius:8px;background:var(--grad);display:grid;place-items:center;color:#fff;font-weight:800;font-size:15px;box-shadow:0 4px 12px rgba(109,139,255,.4);flex-shrink:0}
+.brand .name{font-weight:700;letter-spacing:.2px}
+.brand .spacer{flex:1}
+
+.view-center{padding:26px 20px;text-align:center;display:flex;flex-direction:column;gap:12px;align-items:center}
+.view-center .logo{width:44px;height:44px;font-size:22px;border-radius:12px}
+.view-center h1{font-size:18px}
+.view-center form,.view-center .stack{display:flex;flex-direction:column;gap:10px;width:100%}
+
+/* Toolbar / search */
+.toolbar{display:flex;gap:8px;padding:12px;border-bottom:1px solid var(--border);background:var(--surface)}
+.search{position:relative;flex:1}
+.search input{padding-left:32px}
+.search svg{position:absolute;left:10px;top:50%;transform:translateY(-50%);opacity:.55;pointer-events:none}
+.otpbar{display:flex;gap:8px;padding:10px 12px;border-bottom:1px solid var(--border);background:var(--surface)}
+.otpbar .mini{flex:1}
+.hint{margin:0;padding:10px 14px;font-size:12.5px;color:#d3d8ea;background:var(--accent-weak);border-bottom:1px solid var(--border)}
+
+/* List */
+.list{list-style:none;margin:0;padding:6px;max-height:380px;overflow-y:auto}
+.row{display:flex;align-items:center;gap:9px;padding:9px 10px;border-radius:10px;cursor:pointer;transition:background .12s}
+.row:hover{background:var(--surface-2)}
+.row.attachable:hover{background:var(--accent-weak)}
+.avatar{width:30px;height:30px;border-radius:9px;background:var(--surface-3);display:grid;place-items:center;
+  font-weight:700;color:var(--accent-2);flex-shrink:0;border:1px solid var(--border);text-transform:uppercase}
+.row .info{min-width:0;flex:1}
+.row .title{font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.row .sub{color:var(--muted);font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.row .actions{display:flex;align-items:center;gap:6px;flex-shrink:0}
+.row .empty,.row.empty{color:var(--muted);cursor:default}
+.newotp{color:var(--accent-2);font-weight:600;cursor:pointer;padding:10px;border-radius:10px}
+.newotp:hover{background:var(--surface-2)}
+
+.otpchip{background:var(--ok-bg);color:var(--ok);border:1px solid var(--ok-border);border-radius:8px;
+  padding:5px 8px;font-size:11.5px;font-variant-numeric:tabular-nums;font-weight:700;letter-spacing:.5px;white-space:nowrap}
+.otpchip:hover{filter:brightness(1.15)}
+.fillbtn{background:var(--surface-3);border:1px solid var(--border-strong);color:var(--text);
+  width:30px;height:30px;padding:0;display:grid;place-items:center;border-radius:9px}
+.fillbtn:hover{background:var(--accent);border-color:var(--accent);filter:none}
+.fillbtn svg{width:15px;height:15px}
+
+/* ---- Scan page ---- */
+body.scanbody{width:480px}
+.scanbody .pad{padding:20px}
+.scan-head{display:flex;align-items:center;gap:12px}
+.scan-head .logo{width:34px;height:34px}
+.scanbody h1{font-size:19px}
+.lead{color:var(--muted);margin:6px 0 18px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:14px}
+.card h2{font-size:14px;font-weight:600;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.card h2 .dot{width:22px;height:22px;border-radius:7px;background:var(--surface-3);display:grid;place-items:center;font-size:13px}
+.inline{display:flex;gap:8px}
+.inline input{flex:1}
+.file-drop{border:1px dashed var(--border-strong);border-radius:var(--radius-sm);padding:14px;color:var(--muted);background:var(--surface-2)}
+video{width:100%;border-radius:var(--radius-sm);background:#000;aspect-ratio:16/10;object-fit:cover;margin-bottom:10px;border:1px solid var(--border)}
+.badge{font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;background:var(--surface-3);color:var(--muted);border:1px solid var(--border)}
+.card.success{border-color:var(--ok-border);background:linear-gradient(180deg,var(--ok-bg),var(--surface))}
+.card.success h2{color:var(--ok)}
+.row-btns{display:flex;gap:10px;margin-top:6px}
+label.blk{display:block;color:var(--muted);font-size:12px;margin-bottom:8px}
+label.blk select{margin-top:5px}
